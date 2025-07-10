@@ -1,1 +1,44 @@
-<p>post-form works!</p>
+<div class="form-container">
+  <h2>{{ isEdit ? 'Editar publicación' : 'Crear nueva publicación' }}</h2>
+
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>User ID</mat-label>
+      <input matInput formControlName="userId" type="number" />
+      <mat-error *ngIf="postForm.get('userId')?.hasError('required')">
+        Campo obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Título</mat-label>
+      <input matInput formControlName="title" />
+      <mat-error *ngIf="postForm.get('title')?.hasError('required')">
+        Campo obligatorio
+      </mat-error>
+      <mat-error *ngIf="postForm.get('title')?.hasError('minlength')">
+        Mínimo 5 caracteres
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Contenido</mat-label>
+      <textarea matInput rows="6" formControlName="body"></textarea>
+      <mat-error *ngIf="postForm.get('body')?.hasError('required')">
+        Campo obligatorio
+      </mat-error>
+      <mat-error *ngIf="postForm.get('body')?.hasError('minlength')">
+        Mínimo 10 caracteres
+      </mat-error>
+    </mat-form-field>
+
+    <div class="buttons">
+      <button mat-raised-button color="primary" type="submit" [disabled]="postForm.invalid">
+        {{ isEdit ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button mat-stroked-button type="button" (click)="goBack()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>

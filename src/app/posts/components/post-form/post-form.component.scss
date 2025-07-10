@@ -1,0 +1,24 @@
+.form-container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+
+  h2 {
+    margin-bottom: 25px;
+  }
+
+  mat-form-field {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+}

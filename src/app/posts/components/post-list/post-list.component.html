@@ -1,1 +1,37 @@
-<p>post-list works!</p>
+<div class="container">
+  <div class="header">
+    <div>
+      <h2>Posts Management</h2>
+      <p>Manage your posts with full CRUD operations</p>
+    </div>
+    <button mat-flat-button class="new-post-btn" [routerLink]="['/posts/create']">
+      <mat-icon>add</mat-icon> New Post
+    </button>
+  </div>
+
+  <div class="card-container">
+    <mat-card *ngFor="let post of posts" class="post-card">
+      <mat-card-title>{{ post.title }}</mat-card-title>
+      <mat-card-subtitle>
+        <span class="badge">ID: {{ post.id }}</span>
+        <span class="badge">User: {{ post.userId }}</span>
+      </mat-card-subtitle>
+
+      <mat-card-content>
+        <p>{{ post.body | slice: 0:150 }}...</p>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button mat-stroked-button color="primary" (click)="viewPost(post.id!)">
+          <mat-icon>visibility</mat-icon> View
+        </button>
+        <button mat-stroked-button color="accent" (click)="editPost(post.id!)">
+          <mat-icon>edit</mat-icon> Edit
+        </button>
+        <button mat-stroked-button color="warn" (click)="deletePost(post.id!)">
+          <mat-icon>delete</mat-icon> Delete
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
