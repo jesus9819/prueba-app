@@ -1,0 +1,29 @@
+<div class="container">
+  <h2>Listado de Publicaciones</h2>
+
+  <div *ngIf="isLoading">Cargando publicaciones...</div>
+  <div *ngIf="hasError" class="error">Error al cargar las publicaciones.</div>
+
+  <table class="table" *ngIf="!isLoading && !hasError">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Usuario</th>
+        <th>Contenido</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let post of posts">
+        <td>{{ post.title }}</td>
+        <td>{{ post.userId }}</td>
+        <td>{{ post.body }}</td>
+        <td>
+          <button (click)="viewPost(post.id!)">Ver</button>
+          <button (click)="editPost(post.id!)">Editar</button>
+          <button (click)="deletePost(post.id!)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
