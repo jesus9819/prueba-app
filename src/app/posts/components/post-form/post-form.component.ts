@@ -63,8 +63,9 @@ export class PostFormComponent implements OnInit {
     if (this.isEdit) {
       this.postService.updatePost(this.postId, formData).subscribe({
         next: () => {
+          const updatedPost: Post = { ...formData, id: this.postId };
           this.alertService.success('Publicación actualizada');
-          this.goBack();
+          this.router.navigate(['/posts'], { state: { updatedPost } });
         },
         error: () => {
           this.alertService.error('Error al actualizar');
@@ -73,9 +74,9 @@ export class PostFormComponent implements OnInit {
     } else {
       this.postService.createPost(formData).subscribe({
         next: (newPost) => {
-          newPost.id = Math.floor(Math.random() * 10000); // simula ID
+          newPost.id = Math.floor(Math.random() * 10000); // simular ID
           this.alertService.success('Publicación creada');
-          this.router.navigate(['/posts'], { state: { newPost } }); // pasa el post
+          this.router.navigate(['/posts'], { state: { newPost } });
         },
         error: () => {
           this.alertService.error('Error al crear publicación');

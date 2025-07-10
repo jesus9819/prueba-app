@@ -23,15 +23,26 @@ export class PostListComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
 
+    // ✅ Captura lo creado o editado desde el state
     const newPost = history.state.newPost;
+    const updatedPost = history.state.updatedPost;
 
     this.postService.getPosts().subscribe({
       next: (data) => {
         this.posts = data;
 
+        // ✅ Insertar nuevo post
         if (newPost) {
           newPost.id = newPost.id ?? Math.floor(Math.random() * 10000);
-          this.posts.unshift(newPost); // agregarlo al inicio visualmente
+          this.posts.unshift(newPost);
+        }
+
+        // ✅ Actualizar post editado
+        if (updatedPost) {
+          const index = this.posts.findIndex(p => p.id === updatedPost.id);
+          if (index !== -1) {
+            this.posts[index] = { ...updatedPost };
+          }
         }
 
         this.hasError = false;
